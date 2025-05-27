@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejemplo Sencillo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+      background-color: #f0f0f0;
+      transition: background-color 0.5s;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>¡Hola Mundo!</h1>
+  <p>Haz clic en el botón para cambiar el color de fondo</p>
+  <button onclick="cambiarColor()">Cambiar color</button>
+
+  <script>
+    function cambiarColor() {
+      const colores = ['#f0f0f0', '#ff9999', '#99ff99', '#9999ff', '#ffff99'];
+      const colorActual = document.body.style.backgroundColor;
+      let nuevoColor;
+      do {
+        nuevoColor = colores[Math.floor(Math.random() * colores.length)];
+      } while (nuevoColor === colorActual);
+      document.body.style.backgroundColor = nuevoColor;
+    }
+  </script>
+
+</body>
+</html>
