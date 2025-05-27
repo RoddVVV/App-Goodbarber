@@ -1,1 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio de Vocales</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fefefe;
+      padding: 20px;
+    }
+    .word {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+    input {
+      width: 25px;
+      text-align: center;
+      font-size: 1.2em;
+      margin: 0 2px;
+    }
+    .check-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
 
+  <h3>1. Escribe en el cuadro las <b>vocales</b> que faltan.</h3>
+
+  <div class="word">
+    🌳 <span><input maxlength="1">rb<input maxlength="1">l</span>
+  </div>
+
+  <div class="word">
+    🍓 <span>Fr<input maxlength="1">s<input maxlength="1"></span>
+  </div>
+
+  <div class="word">
+    🐢 <span>T<input maxlength="1">rt<input maxlength="1">g<input maxlength="1"></span>
+  </div>
+
+  <div class="word">
+    🪜 <span><input maxlength="1">Sc<input maxlength="1">l<input maxlength="1">r<input maxlength="1"></span>
+  </div>
+
+  <div class="word">
+    🐝 <span><input maxlength="1">b<input maxlength="1">j<input maxlength="1"></span>
+  </div>
+
+  <div class="word">
+    🪞 <span><input maxlength="1">sp<input maxlength="1">j<input maxlength="1"></span>
+  </div>
+
+  <button class="check-btn" onclick="validar()">Comprobar</button>
+  <div class="result" id="resultado"></div>
+
+  <script>
+    function validar() {
+      // Respuestas correctas en orden (según tus inputs)
+      const respuestasCorrectas = ['a','o',   // árbol
+                                   'e','a',   // fresa
+                                   'o','u','a', // tortuga
+                                   'e','a','e','a', // escalera
+                                   'a','e','a',   // abeja
+                                   'e','e','o'];  // espejo
+
+      const inputs = document.querySelectorAll('input');
+      let correctos = 0;
+
+      inputs.forEach((input, i) => {
+        const valor = input.value.trim().toLowerCase();
+        if (valor === respuestasCorrectas[i]) {
+          input.style.backgroundColor = '#c8e6c9'; // verde claro
+          correctos++;
+        } else {
+          input.style.backgroundColor = '#ffcdd2'; // rojo claro
+        }
+      });
+
+      const total = respuestasCorrectas.length;
+      const mensaje = document.getElementById("resultado");
+
+      if (correctos === total) {
+        mensaje.textContent = `✅ ¡Excelente! Completaste todas correctamente.`;
+        mensaje.style.color = "green";
+      } else {
+        mensaje.textContent = `🔁 Has acertado ${correctos} de ${total}. Intenta corregir los errores.`;
+        mensaje.style.color = "orange";
+      }
+    }
+  </script>
+
+</body>
+</html>
