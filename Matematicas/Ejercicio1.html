@@ -1,1 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ejercicio de Sumas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fefefe;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    .exercise {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .emojis {
+      font-size: 2em;
+    }
+    input {
+      width: 50px;
+      font-size: 1.2em;
+      text-align: center;
+      margin-left: 10px;
+    }
+    .check-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>2. Suma los dibujos y escribe la respuesta correcta:</h2>
+
+  <div class="exercise">
+    🍎🍎🍎 + 🍎🍎
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+
+  <div class="exercise">
+    🐠🐠 + 🐠🐠🐠🐠
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+
+  <div class="exercise">
+    🐶 + 🐶🐶
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+
+  <div class="exercise">
+    🌟🌟🌟🌟 + 🌟
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+
+  <button class="check-btn" onclick="comprobar()">Comprobar</button>
+  <div class="result" id="resultado"></div>
+
+  <script>
+    function comprobar() {
+      const respuestas = [5, 6, 3, 5];
+      const inputs = document.querySelectorAll("input");
+      let correctos = 0;
+
+      inputs.forEach((input, i) => {
+        const valor = parseInt(input.value);
+        if (valor === respuestas[i]) {
+          input.style.backgroundColor = "#c8e6c9"; // verde claro
+          correctos++;
+        } else {
+          input.style.backgroundColor = "#ffcdd2"; // rojo claro
+        }
+      });
+
+      const total = respuestas.length;
+      const mensaje = document.getElementById("resultado");
+
+      if (correctos === total) {
+        mensaje.textContent = "🎉 ¡Muy bien! Todas las sumas son correctas.";
+        mensaje.style.color = "green";
+      } else {
+        mensaje.textContent = `🔁 Has acertado ${correctos} de ${total}. ¡Inténtalo de nuevo!`;
+        mensaje.style.color = "orange";
+      }
+    }
+  </script>
+
+</body>
+</html>
 
