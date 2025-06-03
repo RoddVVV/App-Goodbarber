@@ -2,94 +2,109 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>App Educativa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --primary-color: #ff8a65;
-      --secondary-color: #4db6ac;
-      --accent-color: #ffd54f;
-      --bg-color: #fff8f0;
-      --text-color: #333;
-      --card-radius: 20px;
-      --shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    * {
-      box-sizing: border-box;
+      --primary: #4caf50;
+      --secondary: #2196f3;
+      --accent: #ffca28;
+      --bg: #f9f9f9;
+      --text: #333;
+      --radius: 16px;
+      --shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
     body {
       margin: 0;
-      font-family: 'Baloo 2', cursive;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      padding: 20px;
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
     }
 
     h1 {
-      font-size: 2.2rem;
-      color: var(--primary-color);
+      font-size: 2rem;
       margin-bottom: 30px;
-      text-align: center;
+      color: var(--primary);
     }
 
-    .nav-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
+    .card-grid {
+      display: grid;
+      gap: 20px;
       width: 100%;
       max-width: 600px;
     }
 
-    .section-button {
-      text-decoration: none;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      color: white;
-      padding: 30px;
-      border-radius: var(--card-radius);
-      width: 100%;
-      font-size: 1.6rem;
-      box-shadow: var(--shadow);
+    @media (min-width: 600px) {
+      .card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 12px;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      background: white;
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .section-button:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.12);
     }
 
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 1.8rem;
-      }
-      .section-button {
-        font-size: 1.3rem;
-        padding: 24px;
-      }
+    .card-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+      color: var(--secondary);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.95rem;
+      text-align: center;
+      color: #555;
     }
   </style>
 </head>
 <body>
   <h1>🌟 Aprende Jugando</h1>
 
-  <div class="nav-buttons">
-    <a class="section-button" href="Ciencias/index.html">🧬 Ciencias</a>
-    <a class="section-button" href="Matematicas/index.html">➗ Matemáticas</a>
-    <a class="section-button" href="Lenguaje/index.html">✏️ Lenguaje</a>
-  </div>
-</body>
-</html>
+  <div class="card-grid">
+    <a href="Ciencias/" class="card">
+      <div class="card-icon">🧬</div>
+      <div class="card-title">Ciencias</div>
+      <div class="card-desc">Explorá el mundo natural.</div>
+    </a>
 
-  </script>
+    <a href="Matematicas/" class="card">
+      <div class="card-icon">➗</div>
+      <div class="card-title">Matemáticas</div>
+      <div class="card-desc">Aprendé a contar, sumar y resolver retos divertidos.</div>
+    </a>
+
+    <a href="Lenguaje/" class="card">
+      <div class="card-icon">✏️</div>
+      <div class="card-title">Lenguaje</div>
+      <div class="card-desc">Mejorá la lectura y escritura con cuentos y juegos.</div>
+    </a>
+  </div>
 </body>
 </html>
 
