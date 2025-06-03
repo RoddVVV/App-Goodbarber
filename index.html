@@ -13,7 +13,7 @@
       --bg-color: #fff8f0;
       --text-color: #333;
       --card-radius: 20px;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     * {
@@ -41,60 +41,30 @@
     .nav-buttons {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      width: 200%;
-      /*max-width: 350px;*/
+      gap: 25px;
+      width: 100%;
+      max-width: 600px;
     }
 
     .section-button {
+      text-decoration: none;
       background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
-      padding: 18px;
-      border: none;
+      padding: 30px;
       border-radius: var(--card-radius);
       width: 100%;
-      font-size: 1.2rem;
+      font-size: 1.6rem;
       box-shadow: var(--shadow);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      cursor: pointer;
+      gap: 12px;
       transition: transform 0.2s ease, box-shadow 0.3s ease;
     }
 
     .section-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    }
-
-    .seccion {
-      display: none;
-      margin-top: 30px;
-      background-color: white;
-      padding: 25px;
-      width: 100px;
-      border-radius: var(--card-radius);
-      box-shadow: var(--shadow);
-      width: 100%;
-      max-width: 600px;
-      animation: fadeIn 0.3s ease-out;
-    }
-
-    .seccion h2 {
-      color: var(--secondary-color);
-      margin-top: 0;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      transform: scale(1.02);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
     }
 
     @media (max-width: 500px) {
@@ -102,8 +72,8 @@
         font-size: 1.8rem;
       }
       .section-button {
-        font-size: 1rem;
-        padding: 16px;
+        font-size: 1.3rem;
+        padding: 24px;
       }
     }
   </style>
@@ -112,33 +82,13 @@
   <h1>🌟 Aprende Jugando</h1>
 
   <div class="nav-buttons">
-    <button class="section-button" onclick="showSection('ciencias')">🧬 Ciencias</button>
-    <button class="section-button" onclick="showSection('matematicas')">➗ Matemáticas</button>
-    <button class="section-button" onclick="showSection('lenguaje')">✏️ Lenguaje</button>
+    <a class="section-button" href="Ciencias/index.html">🧬 Ciencias</a>
+    <a class="section-button" href="Matematicas/index.html">➗ Matemáticas</a>
+    <a class="section-button" href="Lenguaje/index.html">✏️ Lenguaje</a>
   </div>
+</body>
+</html>
 
-  <!-- Secciones -->
-  <div id="ciencias" class="seccion">
-    <h2>Lecciones de Ciencias</h2>
-    <p>Explora el mundo de los animales, las plantas, y la naturaleza con juegos y videos interactivos.</p>
-  </div>
-
-  <div id="matematicas" class="seccion">
-    <h2>Lecciones de Matemáticas</h2>
-    <p>Aprende a sumar, restar y contar con divertidos ejercicios y actividades coloridas.</p>
-  </div>
-
-  <div id="lenguaje" class="seccion">
-    <h2>Lecciones de Lenguaje</h2>
-    <p>Descubre nuevas palabras, aprende a leer cuentos y a escribir tus propias historias.</p>
-  </div>
-
-  <script>
-    function showSection(id) {
-      document.querySelectorAll('.seccion').forEach(sec => sec.style.display = 'none');
-      const section = document.getElementById(id);
-      section.style.display = 'block';
-    }
   </script>
 </body>
 </html>
