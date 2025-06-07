@@ -1,1 +1,110 @@
-<h1>HOLAAAAAAAAAAA</h1>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ejercicios de Ciencias</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --primary: #4caf50;
+        --secondary: #2196f3;
+        --accent: #ffca28;
+        --bg: #f9f9f9;
+        --text: #333;
+        --radius: 16px;
+        --shadow: 0 4px 10px rgba(0,0,0,0.08);
+      }
+  
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Nunito', sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+  
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+        color: var(--primary);
+      }
+  
+      .card-grid {
+        display: grid;
+        gap: 20px;
+        width: 100%;
+        max-width: 600px;
+      }
+  
+      @media (min-width: 600px) {
+        .card-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+  
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        padding: 24px;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+  
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+      }
+  
+      .card-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+        color: var(--secondary);
+      }
+  
+      .card-title {
+        font-size: 1.3rem;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+  
+      .card-desc {
+        font-size: 0.95rem;
+        text-align: center;
+        color: #555;
+      }
+    </style>
+</head>
+<body>
+  <div class="card-grid">
+    <a href="Ejercicio1.html" class="card">
+      <div class="card-icon">➕➕➕</div>
+      <div class="title"> Ejercicio 1</div>
+      <div class="desc"> Aprendamos juntos sobre las sumas</div>
+    </a>
+    
+    <a href="Ejercicio2.html" class="card">
+      <div class="card-icon">➖➖➖</div>
+      <div class="title"> Ejercicio 2</div>
+      <div class="desc"> Aprendamos juntos sobre las restas</div>
+    </a>
+
+    <a href="Ejercicio3.html" class="card">
+      <div class="card-icon">🔺 🔵 ◾</div>
+      <div class="title"> Ejercicio 3</div>
+      <div class="desc"> Aprendamos juntos sobre las figuras geometricas</div>
+    </a>
+    
+  </div>
+  
+</body>
+
+  
+</html>
