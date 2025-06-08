@@ -68,7 +68,20 @@
       .footer-back:hover {
         color: #00796b;
       }
+      .back-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: bold;
+        font-size: 1rem;
+        color: #4db6ac;
+        padding-left: 15px;
+      }
       
+      .back-button:hover {
+        color: #00796b;
+      }
   </style>
 </head>
 <body>
@@ -147,5 +160,6 @@
 </body>
   <footer class="footer">
     <a href="../index.html" class="footer-back">⬅️ Volver al inicio</a>
+    <button class="footer-back back-button" onclick="window.history.back()">🔙 Regresar</button>
   </footer>
 </html>
