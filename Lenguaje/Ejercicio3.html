@@ -42,9 +42,15 @@
       cursor: grab;
       font-size: 1rem;
       user-select: none;
+      transition: all 0.2s ease;
     }
     .palabra:active {
       cursor: grabbing;
+    }
+    .palabra.seleccionada {
+      background-color: #b2dfdb;
+      box-shadow: 0 0 10px #00796b;
+      transform: scale(1.05);
     }
     .check-btn {
       margin-top: 20px;
@@ -66,25 +72,23 @@
       min-height: 24px;
     }
     .footer {
-        margin-top: 60px;
-        padding: 20px;
-        text-align: left;
-        background-color: #f9f9f9;
-        width: 100%;
-        border-top: 1px solid #ddd;
-      }
-      
-      .footer-back {
-        text-decoration: none;
-        color: #4db6ac;
-        font-weight: bold;
-        font-size: 1rem;
-        transition: color 0.2s;
-      }
-      
+      margin-top: 60px;
+      padding: 20px;
+      text-align: left;
+      background-color: #f9f9f9;
+      width: 100%;
+      border-top: 1px solid #ddd;
+    }
+    .footer-back {
+      text-decoration: none;
+      color: #4db6ac;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
     .footer-back:hover {
-        color: #00796b;
-      }
+      color: #00796b;
+    }
     .back-button {
       background: none;
       border: none;
@@ -94,17 +98,17 @@
       font-size: 1rem;
       color: #4db6ac;
       padding-left: 15px;
-      }
-    
+    }
     .back-button:hover {
       color: #00796b;
-      }
+    }
   </style>
 </head>
 <body>
 
   <h1>Ordena las frases</h1>
 
+  <!-- Ejercicios -->
   <div class="ejercicio" data-idx="0">
     <p><strong>Ejercicio 1:</strong> Ordena esta frase:</p>
     <div class="zona" id="zona-palabras-0"></div>
@@ -142,14 +146,13 @@
 
 <script>
   const frases = [
-    ["Lo", "esencial", "es", "invisible", "a", "los", "ojos"], // El Principito - Antoine de Saint-Exupéry
-    ["Ser", "o", "no", "ser", "esa", "es", "la", "cuestión"], // Hamlet - Shakespeare
-    ["Todos", "los", "animales", "son", "iguales", "pero", "algunos", "son", "más", "iguales", "que", "otros"], // Rebelión en la granja - George Orwell
-    ["En", "el", "principio", "Dios", "creó", "los", "cielos", "y", "la", "tierra"], // Génesis - Biblia
-    ["No", "hay", "nada", "como", "un", "sueño", "para", "crear", "el", "futuro"], // Miguel de Unamuno
+    ["Lo", "esencial", "es", "invisible", "a", "los", "ojos"],
+    ["Ser", "o", "no", "ser", "esa", "es", "la", "cuestión"],
+    ["Todos", "los", "animales", "son", "iguales", "pero", "algunos", "son", "más", "iguales", "que", "otros"],
+    ["En", "el", "principio", "Dios", "creó", "los", "cielos", "y", "la", "tierra"],
+    ["No", "hay", "nada", "como", "un", "sueño", "para", "crear", "el", "futuro"],
   ];
 
-  // Creamos una función para mezclar (Fisher-Yates shuffle)
   function mezclar(array) {
     let arr = array.slice();
     for (let i = arr.length - 1; i > 0; i--) {
@@ -159,7 +162,6 @@
     return arr;
   }
 
-  // Inicializar cada ejercicio
   frases.forEach((frase, idx) => {
     const zona = document.getElementById(`zona-palabras-${idx}`);
     const palabrasDesordenadas = mezclar(frase);
@@ -170,9 +172,20 @@
       elem.className = "palabra";
       elem.draggable = true;
 
+      // Efecto visual al hacer clic
+      elem.addEventListener("click", () => {
+        Array.from(zona.children).forEach(p => p.classList.remove("seleccionada"));
+        elem.classList.add("seleccionada");
+      });
+
       elem.addEventListener("dragstart", e => {
         e.dataTransfer.setData("text/plain", palabra);
         e.dataTransfer.setData("text/index", Array.from(zona.children).indexOf(e.target));
+        elem.classList.add("seleccionada");
+      });
+
+      elem.addEventListener("dragend", () => {
+        elem.classList.remove("seleccionada");
       });
 
       zona.appendChild(elem);
@@ -184,7 +197,6 @@
       e.preventDefault();
       const palabraArrastrada = e.dataTransfer.getData("text/plain");
       const indexOrigen = parseInt(e.dataTransfer.getData("text/index"));
-      // Obtener el elemento objetivo (puede ser el div palabra o el contenedor si sueltan en zona vacía)
       let target = e.target.closest(".palabra");
       const indexDestino = target ? [...zona.children].indexOf(target) : -1;
 
