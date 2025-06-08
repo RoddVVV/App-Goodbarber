@@ -39,18 +39,15 @@
       padding: 10px 15px;
       background-color: #e0f2f1;
       border-radius: 10px;
-      cursor: grab;
-      font-size: 30px;
+      cursor: pointer;
+      font-size: 1rem;
       user-select: none;
-      transition: all 0.2s ease;
-    }
-    .palabra:active {
-      cursor: grabbing;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
     .palabra.seleccionada {
       background-color: #b2dfdb;
-      box-shadow: 0 0 10px #00796b;
-      transform: scale(1.05);
+      box-shadow: 0 0 8px #00796b;
+      transform: scale(1.1);
     }
     .check-btn {
       margin-top: 20px;
@@ -105,131 +102,106 @@
   </style>
 </head>
 <body>
-
   <h1>Ordena las frases</h1>
-
-  <!-- Ejercicios -->
   <div class="ejercicio" data-idx="0">
     <p><strong>Ejercicio 1:</strong> Ordena esta frase:</p>
     <div class="zona" id="zona-palabras-0"></div>
     <button class="check-btn" onclick="verificar(0)">Comprobar</button>
     <div class="mensaje" id="mensaje-0"></div>
   </div>
-
   <div class="ejercicio" data-idx="1">
     <p><strong>Ejercicio 2:</strong> Ordena esta frase:</p>
     <div class="zona" id="zona-palabras-1"></div>
     <button class="check-btn" onclick="verificar(1)">Comprobar</button>
     <div class="mensaje" id="mensaje-1"></div>
   </div>
-
   <div class="ejercicio" data-idx="2">
     <p><strong>Ejercicio 3:</strong> Ordena esta frase:</p>
     <div class="zona" id="zona-palabras-2"></div>
     <button class="check-btn" onclick="verificar(2)">Comprobar</button>
     <div class="mensaje" id="mensaje-2"></div>
   </div>
-
   <div class="ejercicio" data-idx="3">
     <p><strong>Ejercicio 4:</strong> Ordena esta frase:</p>
     <div class="zona" id="zona-palabras-3"></div>
     <button class="check-btn" onclick="verificar(3)">Comprobar</button>
     <div class="mensaje" id="mensaje-3"></div>
   </div>
-
   <div class="ejercicio" data-idx="4">
     <p><strong>Ejercicio 5:</strong> Ordena esta frase:</p>
     <div class="zona" id="zona-palabras-4"></div>
     <button class="check-btn" onclick="verificar(4)">Comprobar</button>
     <div class="mensaje" id="mensaje-4"></div>
   </div>
-
 <script>
-  const frases = [
-    ["Lo", "esencial", "es", "invisible", "a", "los", "ojos"],
-    ["Ser", "o", "no", "ser", "esa", "es", "la", "cuestión"],
-    ["Todos", "los", "animales", "son", "iguales", "pero", "algunos", "son", "más", "iguales", "que", "otros"],
-    ["En", "el", "principio", "Dios", "creó", "los", "cielos", "y", "la", "tierra"],
-    ["No", "hay", "nada", "como", "un", "sueño", "para", "crear", "el", "futuro"],
-  ];
+const frases = [
+  ["Lo", "esencial", "es", "invisible", "a", "los", "ojos"],
+  ["Ser", "o", "no", "ser", "esa", "es", "la", "cuestión"],
+  ["Todos", "los", "animales", "son", "iguales", "pero", "algunos", "son", "más", "iguales", "que", "otros"],
+  ["En", "el", "principio", "Dios", "creó", "los", "cielos", "y", "la", "tierra"],
+  ["No", "hay", "nada", "como", "un", "sueño", "para", "crear", "el", "futuro"]
+];
 
-  function mezclar(array) {
-    let arr = array.slice();
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+function mezclar(array) {
+  let arr = array.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
+  return arr;
+}
 
-  frases.forEach((frase, idx) => {
-    const zona = document.getElementById(`zona-palabras-${idx}`);
-    const palabrasDesordenadas = mezclar(frase);
-    
-    palabrasDesordenadas.forEach(palabra => {
-      const elem = document.createElement("div");
-      elem.textContent = palabra;
-      elem.className = "palabra";
-      elem.draggable = true;
+let seleccion = null;
 
-      // Efecto visual al hacer clic
-      elem.addEventListener("click", () => {
-        Array.from(zona.children).forEach(p => p.classList.remove("seleccionada"));
+frases.forEach((frase, idx) => {
+  const zona = document.getElementById(`zona-palabras-${idx}`);
+  const palabrasDesordenadas = mezclar(frase);
+
+  palabrasDesordenadas.forEach((palabra, i) => {
+    const elem = document.createElement("div");
+    elem.textContent = palabra;
+    elem.className = "palabra";
+    elem.dataset.index = i;
+
+    elem.addEventListener("click", () => {
+      if (seleccion === null) {
+        seleccion = elem;
         elem.classList.add("seleccionada");
-      });
-
-      elem.addEventListener("dragstart", e => {
-        e.dataTransfer.setData("text/plain", palabra);
-        e.dataTransfer.setData("text/index", Array.from(zona.children).indexOf(e.target));
-        elem.classList.add("seleccionada");
-      });
-
-      elem.addEventListener("dragend", () => {
-        elem.classList.remove("seleccionada");
-      });
-
-      zona.appendChild(elem);
-    });
-
-    zona.addEventListener("dragover", e => e.preventDefault());
-
-    zona.addEventListener("drop", e => {
-      e.preventDefault();
-      const palabraArrastrada = e.dataTransfer.getData("text/plain");
-      const indexOrigen = parseInt(e.dataTransfer.getData("text/index"));
-      let target = e.target.closest(".palabra");
-      const indexDestino = target ? [...zona.children].indexOf(target) : -1;
-
-      if (indexDestino >= 0 && indexOrigen !== indexDestino) {
-        const elementos = Array.from(zona.children);
-        const movida = elementos.splice(indexOrigen, 1)[0];
-        elementos.splice(indexDestino, 0, movida);
-
-        zona.innerHTML = "";
-        elementos.forEach(el => zona.appendChild(el));
+      } else if (seleccion === elem) {
+        seleccion.classList.remove("seleccionada");
+        seleccion = null;
+      } else {
+        const temp = seleccion.textContent;
+        seleccion.textContent = elem.textContent;
+        elem.textContent = temp;
+        seleccion.classList.remove("seleccionada");
+        seleccion = null;
       }
     });
+
+    zona.appendChild(elem);
   });
+});
 
-  function verificar(idx) {
-    const zona = document.getElementById(`zona-palabras-${idx}`);
-    const mensaje = document.getElementById(`mensaje-${idx}`);
-    const fraseActual = Array.from(zona.children).map(el => el.textContent.trim());
-    const correcta = frases[idx];
+function verificar(idx) {
+  const zona = document.getElementById(`zona-palabras-${idx}`);
+  const mensaje = document.getElementById(`mensaje-${idx}`);
+  const fraseActual = Array.from(zona.children).map(el => el.textContent.trim());
+  const correcta = frases[idx];
 
-    if (JSON.stringify(fraseActual) === JSON.stringify(correcta)) {
-      mensaje.textContent = "✅ ¡Muy bien! La frase está correcta.";
-      mensaje.style.color = "green";
-    } else {
-      mensaje.textContent = "🔁 Hay un error. Intenta nuevamente.";
-      mensaje.style.color = "orange";
-    }
+  if (JSON.stringify(fraseActual) === JSON.stringify(correcta)) {
+    mensaje.textContent = "✅ ¡Muy bien! La frase está correcta.";
+    mensaje.style.color = "green";
+  } else {
+    mensaje.textContent = "🔁 Hay un error. Intenta nuevamente.";
+    mensaje.style.color = "orange";
   }
+}
 </script>
-
 </body>
 <footer class="footer">
   <a href="../index.html" class="footer-back">⬅️ Volver al inicio</a>
   <button class="footer-back back-button" onclick="window.history.back()">🔙 Regresar</button>
-</footer>  
+</footer>
 </html>
+
