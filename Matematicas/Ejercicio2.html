@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ejercicio de Sumas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fefefe;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    .exercise {
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
+    }
+    .emojis {
+      font-size: 2em;
+    }
+    input {
+      width: 50px;
+      font-size: 1.2em;
+      text-align: center;
+      margin-left: 10px;
+    }
+    .check-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .icon {
+        font-size: 25px;
+        margin-bottom: 15px;
+        color: var(--secondary);
+      }
+    .footer {
+        margin-top: 60px;
+        padding: 20px;
+        text-align: left;
+        background-color: #f9f9f9;
+        width: 100%;
+        border-top: 1px solid #ddd;
+      }
+      
+      .footer-back {
+        text-decoration: none;
+        color: #4db6ac;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: color 0.2s;
+      }
+      
+      .footer-back:hover {
+        color: #00796b;
+      }
+      
+  </style>
+</head>
+<body>
+
+  <h2>2. Resta los emojis y escribe la respuesta correcta:</h2>
+
+  <div class="exercise">
+    <div class="icon">🌝🌝🌝🌝🌝 - 🌝🌝</div>
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+
+  <div class="exercise">
+    <div class="icon">🌞 - 🌞</div>
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+
+  <div class="exercise">
+    <div class="icon">🐶🐶🐶 - 🐶🐶</div>
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+
+  <div class="exercise">
+    <div class="icon"> ⚽️⚽️⚽️ - ⚽️</div>
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+  
+  <div class="exercise">
+    <div class="icon"> 🍗🍗🍗🍗🍗 - 🍗🍗</div>
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+  
+  <div class="exercise">
+    <div class="icon"> 🍉🍉🍉🍉🍉 - 🍉</div>
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+  
+  <div class="exercise">
+    <div class="icon"> 🍕🍕🍕🍕 - 🍕🍕</div>
+    <input type="int" min="0" max="10" maxlength="1">
+  </div>
+
+
+  <button class="check-btn" onclick="comprobar()">Comprobar</button>
+  <div class="result" id="resultado"></div>
+  
+
+  <script>
+    function comprobar() {
+      const respuestas = [7, 0, 1, 2, 3, 4, 2];
+      const inputs = document.querySelectorAll("input");
+      let correctos = 0;
+
+      inputs.forEach((input, i) => {
+        const valor = parseInt(input.value);
+        if (valor === respuestas[i]) {
+          input.style.backgroundColor = "#c8e6c9"; // verde claro
+          correctos++;
+        } else {
+          input.style.backgroundColor = "#ffcdd2"; // rojo claro
+        }
+      });
+
+      const total = respuestas.length;
+      const mensaje = document.getElementById("resultado");
+
+      if (correctos === total) {
+        mensaje.textContent = "🎉 ¡Muy bien! Todas las sumas son correctas.";
+        mensaje.style.color = "green";
+      } else {
+        mensaje.textContent = `🔁 Has acertado ${correctos} de ${total}. ¡Inténtalo de nuevo!`;
+        mensaje.style.color = "orange";
+      }
+    }
+  </script>
+
+</body>
+  <footer class="footer">
+    <a href="../index.html" class="footer-back">⬅️ Volver al inicio</a>
+  </footer>
+</html>
