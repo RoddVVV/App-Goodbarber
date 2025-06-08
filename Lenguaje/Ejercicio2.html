@@ -2,156 +2,186 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ejercicio de Vocales</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #fefefe;
+      font-family: 'Arial Rounded MT Bold', sans-serif;
+      background: #f5f5f5;
       padding: 20px;
-    }
-    .word {
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-    }
-    input {
-      width: 25px;
+      margin: 0;
+      color: #333;
       text-align: center;
-      font-size: 1.2em;
-      margin: 0 2px;
     }
-    .check-btn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    h1 {
+      color: #4db6ac;
     }
-    .result {
-      margin-top: 20px;
-      font-weight: bold;
+    .ejercicio {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
     }
     .icon {
-        font-size: 25px;
-        margin-bottom: 15px;
-        color: var(--secondary);
-      }
-    .footer {
-        margin-top: 60px;
-        padding: 20px;
-        text-align: left;
-        background-color: #f9f9f9;
-        width: 100%;
-        border-top: 1px solid #ddd;
-      }
-      
-      .footer-back {
-        text-decoration: none;
-        color: #4db6ac;
-        font-weight: bold;
-        font-size: 1rem;
-        transition: color 0.2s;
-      }
-      
-      .footer-back:hover {
-        color: #00796b;
-      }
-      .back-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-family: inherit;
-        font-weight: bold;
-        font-size: 1rem;
-        color: #4db6ac;
-        padding-left: 15px;
-      }
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    .inputs {
+      font-size: 1.5rem;
+    }
+    .inputs input {
+      width: 30px;
+      text-align: center;
+      font-size: 1.2rem;
+      margin: 0 2px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #eee;
+    }
+    .check-btn, .intentar {
+      margin-top: 15px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      background-color: #4db6ac;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .check-btn:hover, .intentar:hover {
+      background-color: #00796b;
+    }
+    .mensaje {
+      margin-top: 10px;
+      font-weight: bold;
+    }
 
-      .back-button:hover {
-        color: #00796b;
-      }
+    .footer {
+      margin-top: 60px;
+      padding: 20px;
+      text-align: left;
+      background-color: #f9f9f9;
+      width: 100%;
+      border-top: 1px solid #ddd;
+    }
+    .footer-back {
+      text-decoration: none;
+      color: #4db6ac;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: color 0.2s;
+    }
+    .footer-back:hover {
+      color: #00796b;
+    }
+    .back-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #4db6ac;
+      padding-left: 15px;
+    }
+    .back-button:hover {
+      color: #00796b;
+    }
   </style>
 </head>
 <body>
 
-  <h3>1. Escribe en el cuadro las <b>vocales</b> que faltan.</h3>
+<h1>🔤 Completa las vocales</h1>
 
-  <div class="word">
-    <div class="icon">🌳 </div>
-    <span><input maxlength="1">rb<input maxlength="1">l</span>
-  </div>
+<div id="contenedor-ejercicios"></div>
 
-  <div class="word">
-    <div class="icon">🍓</div>
-    <span>Fr<input maxlength="1">s<input maxlength="1"></span>
-  </div>
+<script>
+  const palabras = [
+    { icono: "🌳", plantilla: ["", "rb", "", "l"], respuestas: ["a", "o"] },
+    { icono: "🍓", plantilla: ["Fr", "", "s", ""], respuestas: ["e", "a"] },
+    { icono: "🐢", plantilla: ["T", "", "rt", "", "g", ""], respuestas: ["o", "u", "a"] },
+    { icono: "🪜", plantilla: ["", "sc", "", "l", "", "r", ""], respuestas: ["e", "a", "e", "a"] },
+    { icono: "🐝", plantilla: ["", "b", "", "j", ""], respuestas: ["a", "e", "a"] },
+    { icono: "🪞", plantilla: ["", "sp", "", "j", ""], respuestas: ["e", "e", "o"] }
+  ];
 
-  <div class="word">
-    <div class="icon"> 🐢</div> 
-    <span>T<input maxlength="1">rt<input maxlength="1">g<input maxlength="1"></span>
-  </div>
+  const contenedor = document.getElementById("contenedor-ejercicios");
 
-  <div class="word">
-    <div class="icon" >🪜</div> 
-    <span><input maxlength="1">sc<input maxlength="1">l<input maxlength="1">r<input maxlength="1"></span>
-  </div>
+  palabras.forEach((palabra, index) => {
+    const div = document.createElement("div");
+    div.className = "ejercicio";
+    let contenido = `<div class="icon">${palabra.icono}</div><div class="inputs">`;
 
-  <div class="word">
-    <div class="icon"> 🐝 </div>
-    <span><input maxlength="1">b<input maxlength="1">j<input maxlength="1"></span>
-  </div>
-
-  <div class="word">
-    <div class="icon">🪞</div> 
-    <span><input maxlength="1">sp<input maxlength="1">j<input maxlength="1"></span>
-  </div>
-
-  <button class="check-btn" onclick="validar()">Comprobar</button>
-  <div class="result" id="resultado"></div>
-
-  <script>
-    function validar() {
-      // Respuestas correctas en orden (según tus inputs)
-      const respuestasCorrectas = ['a','o',   // árbol
-                                   'e','a',   // fresa
-                                   'o','u','a', // tortuga
-                                   'e','a','e','a', // escalera
-                                   'a','e','a',   // abeja
-                                   'e','e','o'];  // espejo
-
-      const inputs = document.querySelectorAll('input');
-      let correctos = 0;
-
-      inputs.forEach((input, i) => {
-        const valor = input.value.trim().toLowerCase();
-        if (valor === respuestasCorrectas[i]) {
-          input.style.backgroundColor = '#c8e6c9'; // verde claro
-          correctos++;
-        } else {
-          input.style.backgroundColor = '#ffcdd2'; // rojo claro
-        }
-      });
-
-      const total = respuestasCorrectas.length;
-      const mensaje = document.getElementById("resultado");
-
-      if (correctos === total) {
-        mensaje.textContent = `✅ ¡Excelente! Completaste todas correctamente.`;
-        mensaje.style.color = "green";
+    let inputIndex = 0;
+    palabra.plantilla.forEach(parte => {
+      if (parte === "") {
+        contenido += `<input maxlength="1" data-index="${index}" data-respuesta="${palabra.respuestas[inputIndex]}">`;
+        inputIndex++;
       } else {
-        mensaje.textContent = `🔁 Has acertado ${correctos} de ${total}. Intenta corregir los errores.`;
-        mensaje.style.color = "orange";
+        contenido += parte;
       }
+    });
+
+    contenido += `</div>
+      <button class="check-btn" onclick="verificar(${index})">Comprobar</button>
+      <div class="mensaje" id="mensaje-${index}"></div>
+      <button class="intentar" style="display:none" onclick="reintentar(${index})" id="reintentar-${index}">Intentar otra vez</button>
+    `;
+
+    div.innerHTML = contenido;
+    contenedor.appendChild(div);
+  });
+
+  function verificar(index) {
+    const inputs = document.querySelectorAll(`input[data-index="${index}"]`);
+    let correctos = 0;
+
+    inputs.forEach(input => {
+      const valor = input.value.trim().toLowerCase();
+      const respuesta = input.dataset.respuesta;
+      if (valor === respuesta) {
+        input.style.backgroundColor = "#c8e6c9";
+        correctos++;
+      } else {
+        input.style.backgroundColor = "#ffcdd2";
+      }
+      input.disabled = true;
+    });
+
+    const mensaje = document.getElementById(`mensaje-${index}`);
+    const botonReintentar = document.getElementById(`reintentar-${index}`);
+
+    if (correctos === inputs.length) {
+      mensaje.textContent = "✅ ¡Correcto!";
+      mensaje.style.color = "green";
+    } else {
+      mensaje.textContent = `🔁 Has acertado ${correctos} de ${inputs.length}.`;
+      mensaje.style.color = "orange";
     }
-  </script>
+
+    botonReintentar.style.display = "inline-block";
+  }
+
+  function reintentar(index) {
+    const inputs = document.querySelectorAll(`input[data-index="${index}"]`);
+    inputs.forEach(input => {
+      input.disabled = false;
+      input.value = "";
+      input.style.backgroundColor = "#eee";
+    });
+
+    document.getElementById(`mensaje-${index}`).textContent = "";
+    document.getElementById(`reintentar-${index}`).style.display = "none";
+  }
+</script>
+
+<footer class="footer">
+  <a href="../index.html" class="footer-back">⬅️ Volver al inicio</a>
+  <button class="footer-back back-button" onclick="window.history.back()">🔙 Regresar</button>
+</footer>
 
 </body>
-<footer class="footer">
-    <a href="../index.html" class="footer-back">⬅️ Volver al inicio</a>
-    <button class="footer-back back-button" onclick="window.history.back()">🔙 Regresar</button>
-</footer>
 </html>
+
